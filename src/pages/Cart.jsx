@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
+import { clearCart } from "../store/action/cart";
 
 const Cart = () => {
   const cart = useSelector((storeState) => storeState.cart);
@@ -26,7 +27,7 @@ const Cart = () => {
             </thead>
             <tbody>
               {cart.map((cartItem) => (
-                <CartItem cartItem={cartItem} />
+                <CartItem key={cartItem.id} cartItem={cartItem} />
               ))}
             </tbody>
           </table>
@@ -34,10 +35,7 @@ const Cart = () => {
         <h2 className="total-price">Your total price is:${totalAmount}</h2>
 
         <div className="mt-50">
-          <button
-            onClick={() => dispatch({ type: "cart/clearCart" })}
-            className="btn-big"
-          >
+          <button onClick={() => dispatch(clearCart())} className="btn-big">
             Clear Cart
           </button>
         </div>

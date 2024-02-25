@@ -1,48 +1,27 @@
-import { composeWithDevTools } from "@redux-devtools/extension";
+// import { composeWithDevTools } from "@redux-devtools/extension";
+// import { combineReducers, createStore } from "redux";
+// import { cartReducer } from "./reducers/cart";
+// import { counterReducer } from "./reducers/counter";
+// import { themeReducer } from "./reducers/theme";
+
+// const rootReducer = combineReducers({
+//   counter: counterReducer,
+//   theme: themeReducer,
+//   cart: cartReducer,
+// });
+// export const store = createStore(rootReducer, composeWithDevTools());
+
+// using reduc-toolkit
+import { configureStore } from "@reduxjs/toolkit";
 import { cartReducer } from "./reducers/cart";
-import { combineReducers, createStore } from "redux";
-const counterReducer = (state = 10, action) => {
-  switch (action.type) {
-    case "increment": {
-      return state + action.payload;
-    }
-    case "decrement": {
-      return state - action.payload;
-    }
-    default: {
-      return state;
-    }
-  }
-};
-const initState = {
-  bgColor: "#fff",
-  textColor: "#000",
-};
-const themeReducer = (state = initState, action) => {
-  switch (action.type) {
-    case "theme/changeBgColor": {
-      return {
-        ...state,
-        bgColor: action.payload,
-      };
-    }
-    case "theme/changeTextColor": {
-      return {
-        ...state,
-        textColor: action.payload,
-      };
-    }
-    case "theme/reset": {
-      return initState;
-    }
-    default: {
-      return state;
-    }
-  }
-};
-const rootReducer = combineReducers({
+import { counterReducer } from "./reducers/counter";
+import { themeReducer } from "./reducers/theme";
+
+const rootReducer = {
   counter: counterReducer,
   theme: themeReducer,
-  cart:cartReducer,
+  cart: cartReducer,
+};
+export const store = configureStore({
+  reducer: rootReducer,
 });
-export const store = createStore(rootReducer, composeWithDevTools());
